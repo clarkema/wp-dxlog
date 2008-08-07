@@ -1,0 +1,15 @@
+CREATE TABLE dxstation(
+id smallint unsigned NOT NULL auto_increment,
+dxcallsign varchar(30) NOT NULL,
+PRIMARY KEY (id)
+);
+
+CREATE TABLE qsos(
+id mediumint unsigned NOT NULL auto_increment,
+callsign varchar(12) NOT NULL,
+op_mode varchar(6) NOT NULL,
+band tinyint unsigned NOT NULL,
+fk_dxstn smallint unsigned NOT NULL,
+PRIMARY KEY (id),
+KEY (callsign, fk_dxstn)
+);
