@@ -60,41 +60,5 @@
 </tr>
 </table>
 
-<?php
-	echo "<H3><BR><BR><BR><BR>Last 10 logs uploaded</H3>\n";
-	
-	// Display the last 10 files uploaded
-	$query = "SELECT * FROM logfiles order by id DESC LIMIT 10";
-
-	if (!($result = @ mysql_query ($query, $connection)))
-		showerror();
-
-	echo "\n<table border=1 width=75% bgcolor=\"lightyellow\">";
-
-	echo "\n<tr>";
-	echo "\n\t<th>Filename</th>";
-	echo "\n\t<th>No. QSOs</th>";
-	echo "\n\t<th>File type</th>";
-	echo "\n\t<th>Date uploaded</th>";
-	echo "\n</tr>";
-
-	while ($row = @ mysql_fetch_array ($result))
-	{
-		echo "\n<tr>" .
-		     "\n\t<td>{$row["filename"]}</td>" .
-		     "\n\t<td>{$row["qsos"]}</td>" .
-		     "\n\t<td>{$row["filetype"]}</td>" .
-		     "\n\t<td>{$row["loaded"]}</td>";
-
-	}
-
-	echo "\n</table>";		
-
-	// Disconnect from the database
-	if (!mysql_close ($connection))
-   	showerror();
-?>
-
-
 </body>
 </html>

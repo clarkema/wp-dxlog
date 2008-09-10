@@ -557,17 +557,6 @@
 		$total_qso_count = $row['count(*)'];
 
 		echo "<P>There are now $total_qso_count QSOs in the database<P>";
-
-		// Save details of the uploaded file
-		$query = "INSERT INTO logfiles SET id = 0, " .
-			"filename = \"" . $browser_name . "\" , " .
-			"qsos = \"" . $qso_count . "\" , " .
-			"filetype = \"" . $file_type . "\" , " .
-			"loaded = NOW()";
-
-		if (!(@ mysql_query ($query, $connection)))
-			showerror();
-
 	}
 	else
 	{
