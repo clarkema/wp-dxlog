@@ -4,18 +4,24 @@
 ?>
 
 <h2>Upload Cabrillo/ADIF Log</h2>
-<p> Please select the filename of the log to be uploaded into the database. 
-<br><b>Only Cabrillo or ADIF format logs are accepted</b>
+
 <p>
-<table BORDER="0" CELLPADDING="5" CELLSPACING="10">
-<tr>
-<td BGCOLOR="lightyellow">
+    Please select the filename of the log to be uploaded into the database.
+</p>
+
+<p>
+    <b>Only Cabrillo or ADIF format logs are accepted</b>
+</p>
+
+<div style="background-color: lightyellow; padding: 10px;">
 
 <form action="/wp-admin/admin.php?page=wp-dxlog/admin/readlog.php" enctype="multipart/form-data" method="post">
-    <br>Filename:&nbsp;<input name="userfile" type="file">
-    <p>
-        Callsign:&nbsp;
-        <select name="callsign">
+    <label for="dxlog-userfile">Filename:</label>
+    <input id="dxlog-userfile" name="userfile" type="file">
+    <br />
+
+    <label for="dxlog-callsign">Callsign:</label>
+    <select id="dxlog-callsign" name="callsign">
 
 <?php
 
@@ -51,14 +57,13 @@
 
 ?>
 
-</select>
-<p><input type="reset" value="Reset">
-<input type="submit" value="Upload Log">
+    </select>
+    <br />
+
+    <input type="submit" value="Upload Log">
 </form>
 
-</td>
-</tr>
-</table>
+</div>
 
 </body>
 </html>
