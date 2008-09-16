@@ -1,0 +1,12 @@
+table.wp-dxlog-search-results {
+    border: 2px solid #776857;
+    border-collapse: collapse;
+    margin-bottom: 2ex;
+}
+
+table.wp-dxlog-search-results th,
+table.wp-dxlog-search-results td {
+    border: 1px solid #776857;
+    padding: 3px;
+    text-align: center;
+}

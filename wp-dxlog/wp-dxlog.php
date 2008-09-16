@@ -10,6 +10,12 @@ Author: Michael Clarke
 define( 'DXLOG_URLPATH', WP_CONTENT_URL
     . '/plugins/' . plugin_basename( dirname( __FILE__ ) ) . '/' );
 
+add_action( 'wp_head', 'dxlog_header_code' );
+function dxlog_header_code ()
+{
+    echo "<link type='text/css' rel='stylesheet' href='/wp-content/plugins/wp-dxlog/style/style.css'>\n";
+}
+
 add_action( 'admin_menu', 'dxlog_add_admin_menu' );
 function dxlog_add_admin_menu ()
 {
