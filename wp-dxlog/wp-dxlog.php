@@ -52,30 +52,18 @@ add_shortcode( 'dxlog-search', 'dxlog_shortcode_search' );
 
 function dxlog_search ( $callsign )
 {
-    // FIXME: namespacing issues
-    require_once( 'wp-content/plugins/wp-dxlog/dbinc.php' );
-
     $toreturn = array();
 
-    $dbh = @mysql_connect( $hostName, $username, $password );
+    $result = dxlog_query(
+        "SELECT * FROM qsos WHERE UPPER(callsign) = UPPER('%s')",
+        array( $callsign )
+    );
 
-    if ( ! is_resource( $dbh ) ) {
-        // Death
+    while ( $row = @mysql_fetch_assoc( $result ) ) {
+        $toreturn[$row['band']][$row['op_mode']] = 1;
     }
-    else {
-        @mysql_select_db( $databaseName, $dbh );
 
-        $query = sprintf( "SELECT * FROM qsos WHERE UPPER(callsign) = UPPER('%s')",
-                        $callsign );
-
-        $result = @mysql_query( $query, $dbh );
-
-        while ( $row = @mysql_fetch_assoc( $result ) ) {
-            $toreturn[$row['band']][$row['op_mode']] = 1;
-        }
-
-        mysql_free_result( $result );
-    }
+    mysql_free_result( $result );
 
     return $toreturn;
 }
@@ -122,6 +110,30 @@ function dxlog_qso_table ( $results )
     $toreturn .= "</table>";
 
     return $toreturn;
+}
+
+function dxlog_query ( $query, $params )
+{
+    static $dbh;
+    $escaped_params = array_map( 'mysql_real_escape_string', $params );
+
+    if ( ! isset( $dbh ) ) {
+        require_once( 'wp-content/plugins/wp-dxlog/dbinc.php' );
+        /* FIXME Check scope of imported variables */
+
+        $dbh = @mysql_connect( $hostName, $username, $password );
+
+        if ( ! is_resource( $dbh ) ) {
+            die( "wp-dxlog: Failed to connect to database!" );
+        }
+        else {
+            @mysql_select_db( $databaseName, $dbh );
+        }
+    }
+
+    $final_query = vsprintf( $query, $escaped_params );
+
+    return @mysql_query( $final_query, $dbh );
 }
 
 ?>
